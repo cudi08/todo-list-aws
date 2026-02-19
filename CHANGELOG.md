@@ -9,3 +9,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Versión inicial de código.
 1.01
 1.02
+1.03

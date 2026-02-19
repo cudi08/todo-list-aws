@@ -6,7 +6,7 @@ import requests
 import json
 
 import pytest
-#BASE_URL="https://93e0qvxbug.execute-api.us-east-1.amazonaws.com/Prod"
+
 #BASE_URL= "https://hi9v1hzvoj.execute-api.us-east-1.amazonaws.com/Prod"
 BASE_URL = os.environ.get("BASE_URL")
 #BASE_URL = "https://m0qwfec693.execute-api.us-east-1.amazonaws.com/Prod"
