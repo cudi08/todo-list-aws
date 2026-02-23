@@ -1,1 +1,2 @@
-JENKINSFILE merge=ours
+JENKINSFILE merge=our
+Jenkinsfile_agentes merge=our
