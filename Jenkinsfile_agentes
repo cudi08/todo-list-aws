@@ -1,0 +1,35 @@
+pipeline {
+        agent any
+        options { skipDefaultCheckout() }
+        stages {
+            stage('Get Code'){
+                steps {
+                    //Obtener codigo del repo
+                    git url: 'https://github.com/cudi08/todo-list-aws.git',
+                    branch: 'main'
+                    stash name:'code', includes:'**'
+                }
+            }
+            stage('Deploy'){
+                steps {
+                    unstash name:'code'
+                    sh'''
+                        sam build
+                        sam validate --region us-east-1
+                        sam deploy --config-env production
+                    '''
+                }
+            }
+            stage('Rest Test'){
+                agent {label 'linux1'}
+                steps {
+                    unstash name:'code'
+                    sh'''
+                        export BASE_URL="https://4wbd2cgqyh.execute-api.us-east-1.amazonaws.com/Prod"
+                        pytest --junitxml=result-rest.xml test/integration/todoApiTest.py::TestApi::test_api_listtodos test/integration/todoApiTest.py::TestApi::test_api_gettodo
+                    '''
+                    junit 'result-rest.xml'
+                }
+            }
+        }
+}
