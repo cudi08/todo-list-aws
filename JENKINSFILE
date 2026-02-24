@@ -45,6 +45,7 @@ pipeline {
                     junit 'result-rest.xml'
                 }
             }
+<<<<<<<<< saved version
             stage('Promote'){
                 steps {
                     withCredentials([gitUsernamePassword(credentialsId: '145fd302-6340-4b18-acf5-7cb05b83b631', gitToolName: 'git-tool')]) {
@@ -60,5 +61,8 @@ pipeline {
                 }
             }
 
+=========
+
+>>>>>>>>> local version
         }
 }
