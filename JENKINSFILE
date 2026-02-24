@@ -5,8 +5,11 @@ pipeline {
             stage('Get Code'){
                 steps {
                     //Obtener codigo del repo
-                git url: 'https://github.com/cudi08/todo-list-aws.git',
+                    git url: 'https://github.com/cudi08/todo-list-aws.git',
                     branch: 'develop'
+                    sh'''
+                        wget https://raw.githubusercontent.com/cudi08/todo-list-aws-config/refs/heads/staging/samconfig.toml
+                    '''
                 }
             }
             stage('Codigo estatico'){
@@ -50,6 +53,7 @@ pipeline {
                     sh'''
                     git fetch origin main
                     git checkout main
+                    git config --global merge.ours.driver true
                     git reset --hard origin/main
                     git merge -X theirs develop -m "Merge automático de develop a main"
                     git push origin main
